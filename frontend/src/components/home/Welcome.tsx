@@ -66,10 +66,10 @@ const Welcome = () => {
             {/* Stats Grid */}
             <StaggerGrid className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-12 pt-8 border-t border-slate-100">
               {[
-                { value: "10+", label: "Years Experience" },
-                { value: "100+", label: "Products" },
-                { value: "50+", label: "Clients" },
-                { value: "3", label: "Segments" }
+                { value: "25+", label: "Years Experience" },
+                { value: "1000+", label: "Products" },
+                { value: "1000+", label: "Clients" },
+                { value: "10+", label: "Segments" }
               ].map((stat, idx) => (
                 <motion.div 
                   key={stat.label}
