@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,6 +23,20 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeModalProduct, setActiveModalProduct] = useState<ProductItem | null>(null);
+  const [displayLimit, setDisplayLimit] = useState<number>(24);
+  const dosageScrollRef = useRef<HTMLDivElement>(null);
+
+  // Reset displayLimit to 24 whenever any filter criteria changes
+  useEffect(() => {
+    setDisplayLimit(24);
+  }, [selectedDivision, selectedForm, selectedCategory, searchQuery]);
+
+  const orderedDosageForms = useMemo(() => {
+    if (selectedForm === "All") {
+      return dosageForms;
+    }
+    return [selectedForm, ...dosageForms.filter((f) => f !== selectedForm)];
+  }, [selectedForm]);
 
 
 
@@ -56,6 +70,10 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
       return true;
     }).sort((a, b) => a.name.localeCompare(b.name));
   }, [selectedDivision, selectedForm, selectedCategory, searchQuery]);
+
+  const visibleProducts = useMemo(() => {
+    return filteredProducts.slice(0, displayLimit);
+  }, [filteredProducts, displayLimit]);
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased overflow-x-hidden">
@@ -122,26 +140,33 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
       {/* Catalog Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Division Selector Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
-          {divisionTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setSelectedDivision(tab.id)}
-              className={`flex items-center gap-2.5 px-6 py-3.5 rounded-2xl text-sm font-extrabold transition-all duration-300 ${
-                selectedDivision === tab.id
-                  ? "bg-primary text-white shadow-xl shadow-primary/20 scale-105 border border-primary/20"
-                  : "bg-white text-slate-600 border border-slate-200/80 hover:border-primary/40 hover:text-primary shadow-sm"
-              }`}
-            >
-              <span className="material-icons text-lg">{tab.icon}</span>
-              <span>{tab.label}</span>
-              <span className={`px-2.5 py-0.5 rounded-full text-xs font-black ${
-                selectedDivision === tab.id ? "bg-white/25 text-white" : "bg-slate-100 text-slate-700"
-              }`}>
-                {tab.count}
-              </span>
-            </button>
-          ))}
+        <div className="w-full mb-10 overflow-x-auto lg:overflow-x-visible no-scrollbar">
+          <div className="flex lg:grid lg:grid-cols-5 gap-3 min-w-max lg:min-w-0 w-full py-1">
+            {divisionTabs.map((tab) => {
+              const isSelected = selectedDivision === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedDivision(tab.id)}
+                  className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold flex-shrink-0 lg:flex-shrink whitespace-nowrap transition-all duration-200 ${
+                    isSelected
+                      ? "bg-primary text-white shadow-lg shadow-primary/25 border border-primary/20 scale-[1.02]"
+                      : "bg-white text-slate-600 border border-slate-200/90 hover:border-primary/40 hover:text-primary shadow-sm"
+                  }`}
+                >
+                  <span className="material-icons text-base sm:text-lg flex-shrink-0">{tab.icon}</span>
+                  <span className="truncate">{tab.label}</span>
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-xs font-black flex-shrink-0 ${
+                      isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-slate-700"
+                    }`}
+                  >
+                    {tab.count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Sub-Filters: Search Bar + Dosage Form + Therapeutic Area (Location 1) */}
@@ -168,35 +193,57 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
           </div>
 
           {/* Sub-Filter Controls: Dosage Form & Therapy */}
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 pt-2 border-t border-slate-100">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 pt-3 border-t border-slate-100">
             {/* Dosage Form Selector */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mr-2">Dosage Form:</span>
-              {dosageForms.map((form) => (
-                <button
-                  key={form}
-                  onClick={() => setSelectedForm(form)}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                    selectedForm === form
-                      ? "bg-secondary text-white shadow-md shadow-secondary/20 scale-105"
-                      : "bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-primary border border-slate-100"
-                  }`}
-                >
-                  {form}
-                </button>
-              ))}
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">
+                Dosage Form:
+              </span>
+              <div
+                ref={dosageScrollRef}
+                onWheel={(e) => {
+                  if (e.deltaY !== 0) {
+                    e.currentTarget.scrollLeft += e.deltaY;
+                  }
+                }}
+                className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 flex-1 min-w-0"
+              >
+                {orderedDosageForms.map((form) => {
+                  const isSelected = selectedForm === form;
+                  return (
+                    <button
+                      key={form}
+                      onClick={() => {
+                        setSelectedForm(form);
+                        dosageScrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+                      }}
+                      className={`flex-shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                        isSelected
+                          ? "bg-secondary text-white shadow-md shadow-secondary/20"
+                          : "bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-primary border border-slate-100"
+                      }`}
+                    >
+                      {form}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Therapeutic Category Selector */}
-            <div className="flex items-center gap-3 min-w-[240px]">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">Therapy:</span>
+            <div className="flex items-center gap-3 flex-shrink-0 lg:w-64">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">
+                Therapy:
+              </span>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-primary cursor-pointer"
+                className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-primary cursor-pointer"
               >
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
                 ))}
               </select>
             </div>
@@ -231,18 +278,13 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
 
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
-              <motion.div
-                key={product.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                whileHover={{ boxShadow: "0 25px 50px -12px rgba(30,58,138,0.12)" }}
-                transition={{ duration: 0.3 }}
-                className="bg-white rounded-[2rem] p-7 border border-slate-200/80 shadow-sm flex flex-col justify-between group relative overflow-hidden"
-              >
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {visibleProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="bg-white rounded-[2rem] p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group relative overflow-hidden"
+                >
                 {/* Top Colored Division Accent Line */}
                 <div className={`absolute top-0 left-0 right-0 h-1.5 ${
                   product.division === 'General' ? 'bg-blue-600' :
@@ -336,10 +378,27 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
                     <span className="material-icons text-sm">arrow_forward</span>
                   </button>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        ) : (
+
+          {/* Load More Formulations Button */}
+          {filteredProducts.length > visibleProducts.length && (
+            <div className="flex flex-col items-center justify-center pt-10 pb-4">
+              <button
+                onClick={() => setDisplayLimit((prev) => prev + 24)}
+                className="px-8 py-3.5 bg-primary text-white font-extrabold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] active:scale-95 transition-all text-xs sm:text-sm flex items-center gap-2.5 cursor-pointer"
+              >
+                <span className="material-icons text-base">expand_more</span>
+                <span>Load More Formulations</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-xs font-black">
+                  Showing {visibleProducts.length} of {filteredProducts.length}
+                </span>
+              </button>
+            </div>
+          )}
+        </>
+      ) : (
           <div className="py-24 text-center bg-white rounded-[2rem] border border-slate-200 border-dashed">
             <span className="material-icons text-6xl text-slate-300 mb-4">search_off</span>
             <h3 className="text-2xl font-bold text-slate-700 mb-2">No matching formulations found</h3>
