@@ -86,22 +86,17 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fdfdfe] overflow-x-hidden">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
 
       {/* Hero Section (Full Screen Viewport Layout - Zero White Space at Bottom) */}
       <section className="relative min-h-screen flex flex-col justify-center bg-[#101b3b] pt-28 pb-16 overflow-hidden border-b border-slate-800">
-        <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "radial-gradient(#fff 1.5px, transparent 1.5px)", backgroundSize: "36px 36px" }} />
         <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-secondary/20 rounded-full blur-[140px]" />
         <div className="absolute -bottom-32 -left-32 w-[600px] h-[600px] bg-primary-accent/20 rounded-full blur-[140px]" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center my-auto py-4">
-          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-bold uppercase tracking-widest mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative rounded-full h-2 w-2 bg-sky-400"></span>
-            </span>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}
+            className="text-sky-300 text-xs font-bold uppercase tracking-widest mb-4">
             We Respond Within 24 Hours
           </motion.div>
 

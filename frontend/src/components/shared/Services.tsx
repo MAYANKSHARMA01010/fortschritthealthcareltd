@@ -41,7 +41,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 lg:py-32 bg-slate-50">
+    <section id="services" className="py-20 lg:py-32 bg-white border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h2 className="text-primary font-bold tracking-widest uppercase text-sm mb-4">Core Competencies</h2>
@@ -61,7 +61,7 @@ const Services = () => {
               <p className="text-slate-500 leading-relaxed mb-6">
                 {service.desc}
               </p>
-              <a href="/infrastructure" className="inline-flex items-center gap-2 font-bold text-primary group-hover:gap-3 transition-all">
+              <a href="/?scroll=infrastructure" className="inline-flex items-center gap-2 font-bold text-primary group-hover:gap-3 transition-all">
                 Learn More
                 <span className="material-icons text-sm">arrow_forward</span>
               </a>

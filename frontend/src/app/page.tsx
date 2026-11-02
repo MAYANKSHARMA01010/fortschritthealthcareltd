@@ -18,30 +18,38 @@ import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   const router = useRouter();
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const scrollTarget = params.get("scroll");
-    if (scrollTarget) {
-      setTimeout(() => {
-        const element = document.getElementById(scrollTarget);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 150);
-      router.replace("/");
-    }
 
-    const hash = window.location.hash;
-    if (hash) {
-      const id = hash.replace("#", "");
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 150);
-      router.replace("/");
-    }
+  useEffect(() => {
+    const handleScrollTarget = () => {
+      const params = new URLSearchParams(window.location.search);
+      const scrollTarget = params.get("scroll");
+      const hash = window.location.hash ? window.location.hash.replace("#", "") : null;
+      const target = scrollTarget || hash;
+
+      if (target) {
+        const scrollToElement = () => {
+          const element = document.getElementById(target);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+            router.replace("/", { scroll: false });
+          } else {
+            setTimeout(() => {
+              const el = document.getElementById(target);
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+                router.replace("/", { scroll: false });
+              }
+            }, 300);
+          }
+        };
+
+        setTimeout(scrollToElement, 150);
+      }
+    };
+
+    handleScrollTarget();
+    window.addEventListener("popstate", handleScrollTarget);
+    return () => window.removeEventListener("popstate", handleScrollTarget);
   }, [router]);
 
   return (

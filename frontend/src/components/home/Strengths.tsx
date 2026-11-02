@@ -51,7 +51,7 @@ const Strengths = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <FadeUp className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
+          <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
             Our Strengths
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">
@@ -67,7 +67,7 @@ const Strengths = () => {
               variants={staggerItem}
               whileHover={{ y: -8, boxShadow: "0 24px 48px -12px rgba(30,58,138,0.12)" }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="bg-slate-50 border border-slate-100 rounded-[32px] p-8 lg:p-10 group hover:bg-white hover:border-primary/10 transition-all duration-300 flex flex-col h-full"
+              className="bg-white border border-slate-200/80 rounded-[32px] p-8 lg:p-10 group hover:border-primary/20 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full"
             >
               {/* Icon Container with Gradient */}
               <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white mb-8 shadow-md group-hover:scale-110 transition-transform duration-500`}>

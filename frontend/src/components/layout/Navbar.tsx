@@ -153,6 +153,7 @@ export default function Navbar() {
       const element = document.getElementById(scrollTarget);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
+        window.history.replaceState(null, "", "/");
       }
       setMobileOpen(false);
       setActiveDropdown(null);
@@ -328,7 +329,13 @@ export default function Navbar() {
                   <Link
                     key={item.label}
                     href={item.href || "/"}
-                    onClick={item.href === "/" ? scrollToTop : undefined}
+                    onClick={(e) => {
+                      if (item.href === "/") {
+                        scrollToTop(e);
+                      } else if (item.href) {
+                        handleLinkClick(e, item.href);
+                      }
+                    }}
                     className="nav-link-underline px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-primary hover:bg-primary/5 transition-colors duration-200"
                   >
                     {item.label}
@@ -445,7 +452,14 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href || "/"}
-                  onClick={item.href === "/" ? scrollToTop : () => setMobileOpen(false)}
+                  onClick={(e) => {
+                    setMobileOpen(false);
+                    if (item.href === "/") {
+                      scrollToTop(e);
+                    } else if (item.href) {
+                      handleLinkClick(e, item.href);
+                    }
+                  }}
                   className="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-primary/5 hover:text-primary transition-colors duration-200"
                 >
                   {item.label}

@@ -69,12 +69,12 @@ const Infrastructure = () => {
   const activeSection = sections.find((s) => s.id === activeTab) || sections[0];
 
   return (
-    <section id="infrastructure" className="py-24 bg-slate-50 overflow-hidden border-t border-slate-100 scroll-mt-20">
+    <section id="infrastructure" className="py-24 bg-white overflow-hidden border-t border-slate-100 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
+          <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
             Facilities & Standards
           </div>
           <h2 className="text-4xl font-extrabold text-primary mb-6">

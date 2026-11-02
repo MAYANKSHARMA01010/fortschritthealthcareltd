@@ -12,14 +12,14 @@ const milestones = [
 
 const Timeline = () => {
   return (
-    <section id="timeline" className="py-24 bg-slate-50 overflow-hidden scroll-mt-20">
+    <section id="timeline" className="py-24 bg-white border-t border-slate-100 overflow-hidden scroll-mt-20">
       {/* Invisible scroll anchor used as a target for navigation links (e.g., #legacy) */}
       <div id="legacy" className="absolute invisible" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-20">
 
           <FadeIn direction="left" className="lg:w-1/3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
+            <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
               Our Journey
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-8 leading-tight">

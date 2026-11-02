@@ -55,7 +55,12 @@ const Footer = () => {
               <li><a href="/products" className="hover:text-white transition-colors hover:underline underline-offset-4 decoration-white/30">Products</a></li>
               <li><a href="/careers" className="text-secondary font-semibold hover:text-white transition-colors">Careers →</a></li>
               <li><a href="/contact" className="hover:text-white transition-colors hover:underline underline-offset-4 decoration-white/30">Contact Us</a></li>
-              <li><a href="/?scroll=infrastructure" className="hover:text-white transition-colors hover:underline underline-offset-4 decoration-white/30">Infrastructure</a></li>
+              <li><a href="/?scroll=infrastructure" onClick={(e) => {
+                if (window.location.pathname === "/") {
+                  e.preventDefault();
+                  document.getElementById("infrastructure")?.scrollIntoView({ behavior: "smooth" });
+                }
+              }} className="hover:text-white transition-colors hover:underline underline-offset-4 decoration-white/30">Infrastructure</a></li>
             </ul>
           </div>
 

@@ -4,7 +4,7 @@ import React from "react";
 import { FadeUp, StaggerGrid, staggerItem, motion } from "@/utils/animations";
 
 const leaders = [
-  { name: "Naveen Chandra Kandpal",   role: "Managing Director",  bio: "A pharmaceutical industry leader with nearly three decades of experience. Former tenures at Rhydburg Pharmaceuticals (1998), Maiden Pharmaceuticals Ltd. (2000), and Salus Pharmaceuticals (2010) forged his expertise before he joined Fortschritt Ltd. as Managing Director in 2014.",    image: "/team/CEOImage.png" },
+  { name: "Naveen Kandpal",   role: "Managing Director",  bio: "A pharmaceutical industry leader with nearly three decades of experience. Former tenures at Rhydburg Pharmaceuticals (1998), Maiden Pharmaceuticals Ltd. (2000), and Salus Pharmaceuticals (2010) forged his expertise before he joined Fortschritt Ltd. as Managing Director in 2014.",    image: "/team/CEOImage.png" },
   { name: "Chander Mohan Negi",       role: "Director",           bio: "A distinguished pharmaceutical professional with over 26 years of expertise in marketing, brand management, and business development (MBA & MCA). Former roles at Wander Pharmaceuticals and Akumentis Healthcare; joined Fortschritt in 2016 and also leads Menschlich Healthcare since 2017.",            image: "/team/OperationalDirectorImage.png" },
 ];
 
@@ -34,7 +34,7 @@ const Leadership = () => {
                 <img
                   src={leader.image}
                   alt={leader.name}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                   <p className="text-white text-xs font-bold tracking-widest uppercase mb-1">{leader.role}</p>

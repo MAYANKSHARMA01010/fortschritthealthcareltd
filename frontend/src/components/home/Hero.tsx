@@ -6,21 +6,18 @@ import Link from "next/link";
 
 const heroSlides = [
   {
-    badge: "Global Reach",
     heading: "Advancing Human Health",
     highlight: "All Over The World",
     sub: "Fortschritt Healthcare Limited delivers world-class pharmaceutical solutions, exporting excellence to over 45+ countries with a decade of trusted expertise.",
     image: "/home/hero-lab.webp",
   },
   {
-    badge: "Quality First",
     heading: "State-of-the-Art Manufacturing",
     highlight: "Certified Standards",
     sub: "Our WHO-GMP and ISO certified facilities ensure every dosage meets the highest international benchmarks for safety and efficacy.",
     image: "/home/hero-facility.webp",
   },
   {
-    badge: "Innovation Driven",
     heading: "Pioneering Formulations for a",
     highlight: "Healthier Future",
     sub: "From complex APIs to critical life-saving therapeutics, we are dedicated to making quality healthcare accessible to all, globally.",
@@ -44,12 +41,11 @@ const Hero = () => {
   const s = heroSlides[slide];
 
   return (
-    <section id="home" className="relative min-h-[90vh] lg:h-[95vh] flex items-center overflow-hidden bg-[#fdfdfe]">
+    <section id="home" className="relative min-h-[90vh] lg:h-[95vh] flex items-center overflow-hidden bg-white">
       {/* ── Background Layer ────────────────────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#1e3a8a 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       </div>
 
       {/* ── Content Container ───────────────────────────────── */}
@@ -67,20 +63,6 @@ const Hero = () => {
                   exit={{ opacity: 0, y: -16 }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {/* Badge */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.1, duration: 0.4 }}
-                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-xs font-bold mb-8 tracking-wider uppercase"
-                  >
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                    </span>
-                    {s.badge}
-                  </motion.div>
-
                   <h1 className="text-5xl md:text-7xl font-extrabold text-primary leading-[1.05] mb-8">
                     {s.heading} <br />
                     <motion.span

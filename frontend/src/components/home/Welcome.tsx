@@ -42,7 +42,7 @@ const Welcome = () => {
 
           {/* Content Side */}
           <FadeIn direction="right" className="lg:w-1/2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
+            <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
               About Our Company
             </div>
 

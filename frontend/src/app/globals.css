@@ -2,12 +2,12 @@
 
 :root {
   /* Premium Healthcare Palette */
-  --background: #fdfdfe;
+  --background: #ffffff;
   --foreground: #0c121e;
   --primary: #1e3a8a; /* Deep Navy Blue */
   --primary-accent: #3b82f6; /* Modern Vibrant Blue */
   --secondary: #0ea5e9; /* Sky Blue */
-  --surface: #f8fafc;
+  --surface: #ffffff;
   --glass: rgba(255, 255, 255, 0.7);
   --border-glass: rgba(255, 255, 255, 0.2);
 }
@@ -22,15 +22,8 @@
   --font-sans: 'Inter', 'Manrope', ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0b0f19;
-    --foreground: #f1f5f9;
-  }
-}
-
 body {
-  background: var(--background);
+  background: #ffffff;
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
   scroll-behavior: smooth;

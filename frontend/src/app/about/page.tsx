@@ -159,24 +159,22 @@ export default function AboutPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-[#fdfdfe] overflow-x-hidden">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
 
       {/* Hero Section (Full Screen Viewport Layout - Zero White Space at Bottom) */}
       <section className="relative min-h-screen flex flex-col justify-center bg-[#101b3b] pt-28 pb-16 overflow-hidden border-b border-slate-800">
-        <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "radial-gradient(#fff 1.5px, transparent 1.5px)", backgroundSize: "36px 36px" }} />
         <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-secondary/20 rounded-full blur-[140px]" />
         <div className="absolute -bottom-32 -left-32 w-[600px] h-[600px] bg-primary-accent/20 rounded-full blur-[140px]" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center my-auto py-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-bold uppercase tracking-widest mb-6"
+            className="text-sky-300 text-xs font-bold uppercase tracking-widest mb-4"
           >
-            <span className="material-icons text-[14px] text-secondary">info_outline</span>
-            Know Our Journey
+            Corporate Overview
           </motion.div>
 
           <motion.h1
@@ -235,7 +233,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── CEO's Message Section ─────────────────────────────── */}
-      <section id="ceo" className="py-24 bg-slate-50 scroll-mt-20 overflow-hidden border-b border-slate-100">
+      <section id="ceo" className="py-24 bg-white scroll-mt-20 overflow-hidden border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
             
@@ -246,13 +244,13 @@ export default function AboutPage() {
                 <div className="relative overflow-hidden rounded-[36px] border-[12px] border-white shadow-[0_32px_64px_-16px_rgba(30,58,138,0.2)] bg-slate-100 aspect-[3/4]">
                   <img
                     src="/team/CEOImage.png"
-                    alt="Naveen Chandra Kandpal - Managing Director, Fortschritt Healthcare"
+                    alt="Naveen Kandpal - Managing Director, Fortschritt Healthcare"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-6 left-6 right-6 text-white">
                     <p className="text-xs font-bold uppercase tracking-widest text-slate-200 mb-1">Managing Director</p>
-                    <h4 className="text-xl font-bold text-white">Naveen Chandra Kandpal</h4>
+                    <h4 className="text-xl font-bold text-white">Naveen Kandpal</h4>
                   </div>
                 </div>
               </div>
@@ -260,7 +258,7 @@ export default function AboutPage() {
 
             {/* CEO Message Content */}
             <FadeIn direction="right" className="w-full lg:w-7/12">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
+              <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
                 Managing Director's Message
               </div>
               <div className="relative">
@@ -415,7 +413,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <FadeUp className="text-center max-w-3xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
+            <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
               Our Culture & Team
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-4">
@@ -461,10 +459,10 @@ export default function AboutPage() {
       </section>
 
       {/* ── Past Events Section ────────────────────────────────── */}
-      <section id="events" className="py-24 bg-slate-50 scroll-mt-20 overflow-hidden border-t border-b border-slate-100">
+      <section id="events" className="py-24 bg-white scroll-mt-20 overflow-hidden border-t border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <FadeUp className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
+            <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
               Events & Highlights
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-4">

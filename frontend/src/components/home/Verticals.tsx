@@ -18,7 +18,7 @@ const Verticals = () => {
            ========================================================================= */}
         <div className="mb-24">
           <FadeUp className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest mb-4">
+            <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
               Approved Manufacturing Spectrum
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-6 leading-tight">

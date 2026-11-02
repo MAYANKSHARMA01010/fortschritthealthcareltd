@@ -27,12 +27,12 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section id="partners" className="py-24 bg-slate-50 overflow-hidden">
+    <section id="partners" className="py-24 bg-white border-t border-slate-100 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-20">
           <FadeIn direction="left" className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
-              Collaborations
+            <div className="text-secondary font-extrabold text-xs uppercase tracking-widest mb-3">
+              Strategic Alliances
             </div>
             <h2 className="text-4xl font-extrabold text-primary mb-6">
               Strategic Pharmaceutical <span className="text-primary-accent text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Partnerships</span>

@@ -14,13 +14,11 @@ export default function ManufacturingEthicsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fdfdfe]">
+    <div className="min-h-screen bg-white">
       <Navbar />
       <section className="relative py-24 bg-primary overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(#fff 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-xs font-bold uppercase tracking-widest mb-6">
-            <span className="material-icons text-sm">balance</span>
+          <div className="text-sky-300 text-xs font-bold uppercase tracking-widest mb-4">
             Our Commitment
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6">Manufacturing Ethics</h1>

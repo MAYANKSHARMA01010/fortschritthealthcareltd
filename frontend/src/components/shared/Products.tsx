@@ -28,7 +28,7 @@ const Products = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {categories.map((cat) => (
-            <div key={cat.title} className="group p-8 rounded-3xl border border-slate-100 bg-slate-50 hover:bg-white hover:border-primary/20 hover:shadow-xl transition-all cursor-pointer">
+            <div key={cat.title} className="group p-8 rounded-3xl border border-slate-200/80 bg-white hover:border-primary/20 hover:shadow-xl transition-all cursor-pointer">
               <div className="flex items-start justify-between mb-8">
                 <div className="h-14 w-14 rounded-2xl bg-white flex items-center justify-center text-primary shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
                   <span className="material-icons text-2xl">{cat.icon}</span>
