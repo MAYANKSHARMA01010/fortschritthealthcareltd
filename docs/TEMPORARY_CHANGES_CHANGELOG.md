@@ -4,39 +4,33 @@ This document records all recent project modifications, file changes, dataset ov
 
 ---
 
-## 1. Temporary Development Port Changes (Current: 3001 & 5002)
+## 1. Development Ports Configuration (Current: 3000 & 5001)
 
-To accommodate concurrent running servers, local development ports were temporarily updated from `3000` & `5001` to **`3001`** (Frontend) and **`5002`** (Backend).
+Local development ports are configured as **`3000`** (Frontend) and **`5001`** (Backend).
 
-### Files Modified & Exact Values:
+### Files Configured & Exact Values:
 
 1. **`scripts/dev.sh`**
-   - **Line 18-19**: Port killing changed from `3000 5001` to `3001 5002`.
-   - **Line 55-58**: Console logs updated to `http://localhost:5002` and `http://localhost:3001`.
-   - *Revert*: Change `3001` back to `3000`, and `5002` back to `5001`.
+   - Port killing: `3000 5001`.
+   - Console logs: `http://localhost:5001` and `http://localhost:3000`.
 
 2. **`frontend/package.json`**
-   - **Line 6**: `"dev": "next dev --webpack -p 3001"`
-   - *Revert*: Change to `"dev": "next dev --webpack"`.
+   - `"dev": "next dev --webpack -p 3000"`
 
 3. **`backend/.env`**
-   - `SERVER_PORT=5002`
-   - `FRONTEND_LOCAL_URL=http://localhost:3001`
-   - `BACKEND_LOCAL_URL=http://localhost:5002`
-   - *Revert*: Change `SERVER_PORT=5001`, `FRONTEND_LOCAL_URL=http://localhost:3000`, `BACKEND_LOCAL_URL=http://localhost:5001`.
+   - `SERVER_PORT=5001`
+   - `FRONTEND_LOCAL_URL=http://localhost:3000`
+   - `BACKEND_LOCAL_URL=http://localhost:5001`
 
 4. **`frontend/.env`**
-   - `NEXT_PUBLIC_FRONTEND_LOCAL_URL=http://localhost:3001`
-   - `NEXT_PUBLIC_BACKEND_LOCAL_URL=http://localhost:5002`
-   - *Revert*: Change `NEXT_PUBLIC_FRONTEND_LOCAL_URL=http://localhost:3000`, `NEXT_PUBLIC_BACKEND_LOCAL_URL=http://localhost:5001`.
+   - `NEXT_PUBLIC_FRONTEND_LOCAL_URL=http://localhost:3000`
+   - `NEXT_PUBLIC_BACKEND_LOCAL_URL=http://localhost:5001`
 
 5. **`frontend/src/api/contact.ts`**
-   - **Line 5**: `const API_BASE_URL = env.BACKEND_URL || "http://localhost:5002";`
-   - *Revert*: Change `"http://localhost:5002"` to `"http://localhost:5001"`.
+   - `const API_BASE_URL = env.BACKEND_URL || "http://localhost:5001";`
 
 6. **`backend/src/configs/env.config.js`**
-   - **Line 4**: `SERVER_PORT: z.string().default("5002")`
-   - *Revert*: Change `"5002"` to `"5001"`.
+   - `SERVER_PORT: z.string().default("5001")`
 
 ---
 
