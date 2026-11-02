@@ -8,7 +8,7 @@ const heroSlides = [
   {
     heading: "Advancing Human Health",
     highlight: "All Over The World",
-    sub: "Fortschritt Healthcare Limited delivers world-class pharmaceutical solutions, exporting excellence to over 45+ countries with a decade of trusted expertise.",
+    sub: "Fortschritt Healthcare Limited delivers world-class pharmaceutical solutions, exporting excellence to over 45+ countries with 25+ years of trusted experience.",
     image: "/home/hero-lab.webp",
   },
   {

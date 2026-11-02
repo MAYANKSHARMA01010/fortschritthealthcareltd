@@ -7,7 +7,7 @@ const milestones = [
   { year: "2014", title: "The Genesis (B2)", description: "Started our initial B2 operations in January 2014, laying the foundation for our future healthcare endeavors." },
   { year: "2015", title: "Fortschritt & Global Export", description: "Fortschritt Healthcare Limited was officially established, and we simultaneously expanded our reach by initiating export operations." },
   { year: "2018", title: "R&D Innovation HUB", description: "Established a dedicated Research & Development center focusing on complex generic formulations and critical therapeutics." },
-  { year: "2023", title: "Therapeutic Excellence", description: "Broadened our portfolio to over 1800+ specialized formulations, highlighting our expertise in Hormonal Tablets." },
+  { year: "2023", title: "Therapeutic Excellence", description: "Broadened our portfolio to over 1000+ specialized products, highlighting our expertise in Hormonal Tablets." },
 ];
 
 const Timeline = () => {
@@ -23,18 +23,18 @@ const Timeline = () => {
               Our Journey
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-8 leading-tight">
-              A Decade of <br />
+              25+ Years of <br />
               <span className="text-primary-accent">Growth & Trust</span>
             </h2>
             <p className="text-slate-500 text-lg leading-relaxed font-medium mb-12">
-              From our humble beginnings in 2014 to becoming a trusted name in Indian pharmaceuticals and global exports,
+              With 25+ years of industry experience and leadership since 1998,
               we have consistently delivered excellence and hit every milestone of growth.
             </p>
 
             <div className="space-y-6">
               {[
-                { icon: "history_edu", color: "primary", label: "10+ Years Legacy" },
-                { icon: "inventory_2", color: "secondary", label: "1800+ Formulations" },
+                { icon: "history_edu", color: "primary", label: "25+ Years Experience" },
+                { icon: "inventory_2", color: "secondary", label: "1000+ Products" },
               ].map((item) => (
                 <motion.div
                   key={item.label}

@@ -34,7 +34,7 @@ const Welcome = () => {
               className="absolute top-1/2 -right-12 translate-y-[-50%] z-30 glass p-6 rounded-3xl shadow-xl hidden lg:block border border-white/50"
             >
               <div className="text-center">
-                <div className="text-4xl font-extrabold text-primary mb-1">10+</div>
+                <div className="text-4xl font-extrabold text-primary mb-1">25+</div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Years of <br /> Excellence</div>
               </div>
             </motion.div>

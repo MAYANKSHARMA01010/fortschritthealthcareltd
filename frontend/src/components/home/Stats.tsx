@@ -4,10 +4,10 @@ import React from "react";
 import { FadeUp, StaggerGrid, staggerItem, motion } from "@/utils/animations";
 
 const stats = [
-  { label: "Employees", value: "500+", icon: "groups", color: "primary" },
-  { label: "Global Markets", value: "45+", icon: "public", color: "secondary" },
-  { label: "Years Exp.", value: "14+", icon: "history_edu", color: "primary" },
-  { label: "Global Awards", value: "25+", icon: "workspace_premium", color: "secondary" },
+  { label: "Years Experience", value: "25+", icon: "history_edu", color: "primary" },
+  { label: "Products", value: "1000+", icon: "medication", color: "secondary" },
+  { label: "Clients", value: "1000+", icon: "groups", color: "primary" },
+  { label: "Segments", value: "10+", icon: "category", color: "secondary" },
 ];
 
 const Stats = () => {

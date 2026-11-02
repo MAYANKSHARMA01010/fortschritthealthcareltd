@@ -77,7 +77,7 @@ const navItems: NavItem[] = [
       { label: "CEO's Message",         href: "/about?scroll=ceo",      icon: "person",         description: "Leadership vision & direction" },
       { label: "Our Team",              href: "/about?scroll=team",     icon: "groups",         description: "Meet the experts behind us" },
       { label: "Events & Highlights",   href: "/about?scroll=events",   icon: "event",          description: "CPhI expos, health drives & compliance" },
-      { label: "Legacy & Milestones",   href: "/?scroll=legacy",        icon: "timeline",       description: "10+ years of healthcare impact" },
+      { label: "Legacy & Milestones",   href: "/?scroll=legacy",        icon: "timeline",       description: "25+ years of healthcare impact" },
     ],
   },
   {

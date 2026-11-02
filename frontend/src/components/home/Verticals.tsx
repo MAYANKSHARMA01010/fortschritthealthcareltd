@@ -25,7 +25,7 @@ const Verticals = () => {
               Product Divisions
             </h2>
             <p className="text-slate-500 text-base md:text-lg font-medium leading-relaxed mb-6 max-w-2xl mx-auto">
-              Over 200+ WHO-GMP certified formulations across 4 primary manufacturing divisions.
+              Over 1000+ WHO-GMP certified products across primary manufacturing divisions.
             </p>
             <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
           </FadeUp>
@@ -309,7 +309,7 @@ const Verticals = () => {
             href="/products"
             className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-bold rounded-2xl hover:bg-secondary hover-lift transition-all duration-300 shadow-xl shadow-primary/20"
           >
-            <span>Explore Complete Formulations Catalog (200+)</span>
+            <span>Explore Complete Products Catalog (1000+)</span>
             <span className="material-icons text-xl">arrow_forward</span>
           </Link>
         </FadeUp>

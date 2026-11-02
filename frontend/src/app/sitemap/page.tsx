@@ -44,7 +44,7 @@ const sitemapData = [
       { label: "CEO's Message",         href: "/about?scroll=ceo",      description: "Leadership vision & direction" },
       { label: "Our Team",              href: "/about?scroll=team",     description: "Meet the experts behind us" },
       { label: "Events & Highlights",   href: "/about?scroll=events",   description: "CPhI expos & company milestones" },
-      { label: "Legacy & Milestones",   href: "/?scroll=legacy",        description: "10+ years of healthcare impact" },
+      { label: "Legacy & Milestones",   href: "/?scroll=legacy",        description: "25+ years of healthcare impact" },
     ],
   },
   {

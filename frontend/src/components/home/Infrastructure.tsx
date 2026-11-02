@@ -14,7 +14,7 @@ const sections = [
       "Dedicated sections: Soft Gel, Tablets & Capsules",
       "Specialized facilities: General, Beta-Lactam, Cephalosporins",
       "Specialized lines: Anti-TB & Effervescent dosage forms",
-      "Mass Capacity: Production of 1800+ formulation products",
+      "Mass Capacity: Production of 1000+ formulation products",
       "Controlled environments: Class 100,000 cleanrooms",
       "Fully automated packaging and stability-pack strip sealers"
     ]

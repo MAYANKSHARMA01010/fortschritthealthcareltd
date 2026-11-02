@@ -15,8 +15,8 @@ const About = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
               <div className="absolute bottom-10 left-10 right-10">
                 <div className="p-6 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20">
-                  <h3 className="text-3xl font-bold text-white mb-1">14+ Years</h3>
-                  <p className="text-white/80">Of Excellence in Himachal Pradesh</p>
+                  <h3 className="text-3xl font-bold text-white mb-1">25+ Years</h3>
+                  <p className="text-white/80">Of Healthcare Experience</p>
                 </div>
               </div>
             </div>
