@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/home/Hero";
-import { useRouter } from "next/navigation";
 
 import Welcome from "@/components/home/Welcome";
 import Partners from "@/components/home/Partners";
@@ -17,8 +16,6 @@ import BrochureCTA from "@/components/home/BrochureCTA";
 import Footer from "@/components/layout/Footer";
 
 export default function Home() {
-  const router = useRouter();
-
   useEffect(() => {
     const handleScrollTarget = () => {
       const params = new URLSearchParams(window.location.search);
@@ -31,13 +28,13 @@ export default function Home() {
           const element = document.getElementById(target);
           if (element) {
             element.scrollIntoView({ behavior: "smooth" });
-            router.replace("/", { scroll: false });
+            window.history.replaceState(null, "", "/");
           } else {
             setTimeout(() => {
               const el = document.getElementById(target);
               if (el) {
                 el.scrollIntoView({ behavior: "smooth" });
-                router.replace("/", { scroll: false });
+                window.history.replaceState(null, "", "/");
               }
             }, 300);
           }
@@ -50,7 +47,7 @@ export default function Home() {
     handleScrollTarget();
     window.addEventListener("popstate", handleScrollTarget);
     return () => window.removeEventListener("popstate", handleScrollTarget);
-  }, [router]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">

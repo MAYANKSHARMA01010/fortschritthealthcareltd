@@ -4,7 +4,7 @@ import React from "react";
 import { FadeUp, StaggerGrid, staggerItem, motion } from "@/utils/animations";
 
 const leaders = [
-  { name: "Naveen Kandpal",   role: "Managing Director",  bio: "A pharmaceutical industry leader with nearly three decades of experience. Former tenures at Rhydburg Pharmaceuticals (1998), Maiden Pharmaceuticals Ltd. (2000), and Salus Pharmaceuticals (2010) forged his expertise before he joined Fortschritt Ltd. as Managing Director in 2014.",    image: "/team/CEOImage.png" },
+  { name: "Naveen Kandpal",   role: "Managing Director",  bio: "A pharmaceutical industry leader with nearly three decades of experience. Former tenures at Rhydburg Pharmaceuticals, Maiden Pharmaceuticals Ltd, and Salus Pharmaceuticals forged his expertise before he joined Fortschritt Ltd. as Managing Director in 2014.",    image: "/team/CEOImage.png" },
   { name: "Chander Mohan Negi",       role: "Director",           bio: "A distinguished pharmaceutical professional with over 26 years of expertise in marketing, brand management, and business development (MBA & MCA). Former roles at Wander Pharmaceuticals and Akumentis Healthcare; joined Fortschritt in 2016 and also leads Menschlich Healthcare since 2017.",            image: "/team/OperationalDirectorImage.png" },
 ];
 

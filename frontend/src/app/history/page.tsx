@@ -1,14 +1,5 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function HistoryPage() {
-  const router = useRouter();
-  
-  useEffect(() => {
-    router.replace("/?scroll=legacy");
-  }, [router]);
-
-  return null;
+  redirect("/?scroll=legacy");
 }

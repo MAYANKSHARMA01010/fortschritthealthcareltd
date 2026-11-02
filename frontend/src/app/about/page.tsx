@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { FadeUp, FadeIn, StaggerGrid, staggerItem, motion } from "@/utils/animations";
@@ -67,8 +66,6 @@ const pastEvents = [
 ];
 
 export default function AboutPage() {
-  const router = useRouter();
-
   // ── Drag-to-scroll for the events marquee ──────────────────────
   // Uses Pointer Events (mouse + touch unified) + setPointerCapture so
   // dragging stays smooth even when cursor leaves the container.
@@ -152,11 +149,11 @@ export default function AboutPage() {
         const element = document.getElementById(scrollTarget);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
+          window.history.replaceState(null, "", "/about");
         }
       }, 200);
-      router.replace("/about");
     }
-  }, [router]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
