@@ -8,7 +8,9 @@
     "dev": "bash scripts/dev.sh",
     "dev:terms": "bash scripts/dev.sh --terms",
     "build": "pnpm -r run build",
-    "start": "pnpm -r run start"
+    "build:backend": "pnpm --filter backend run build",
+    "start": "pnpm -r run start",
+    "start:backend": "pnpm --filter backend run start"
   },
   "packageManager": "pnpm@10.28.2",
   "devDependencies": {
