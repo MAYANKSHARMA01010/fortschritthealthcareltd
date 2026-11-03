@@ -26,8 +26,9 @@ if (!parsed.success) {
 
 export const env = {
   ...parsed.data,
-  // Derive the active Backend URL based on NODE_ENV
-  BACKEND_URL: parsed.data.NODE_ENV === "production" 
-    ? parsed.data.NEXT_PUBLIC_BACKEND_SERVER_URL 
-    : parsed.data.NEXT_PUBLIC_BACKEND_LOCAL_URL,
+  // Derive the active Backend URL based on NODE_ENV with safe production defaults
+  BACKEND_URL:
+    parsed.data.NODE_ENV === "production"
+      ? (parsed.data.NEXT_PUBLIC_BACKEND_SERVER_URL || "https://fortschritthealthcareltd.onrender.com")
+      : (parsed.data.NEXT_PUBLIC_BACKEND_LOCAL_URL || "http://localhost:5001"),
 };

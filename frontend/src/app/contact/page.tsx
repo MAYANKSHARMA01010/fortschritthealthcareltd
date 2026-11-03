@@ -264,7 +264,7 @@ export default function ContactPage() {
                     <span className="material-icons text-5xl">check_circle</span>
                   </motion.div>
                   <h2 className="text-3xl font-extrabold text-primary">Message Sent!</h2>
-                  <p className="text-slate-500 max-w-sm text-lg">Our team will respond within 3 working days. For urgent queries, call or WhatsApp us directly.</p>
+                  <p className="text-slate-500 max-w-sm text-lg">Our team will respond within 24 hours. For urgent queries, call or WhatsApp us directly.</p>
                   <div className="flex gap-4 mt-4">
                     <a href={VIKAS.phone} className="px-6 py-3 bg-primary text-white font-bold rounded-xl text-sm hover:bg-primary/90 transition-colors flex items-center gap-2">
                       <span className="material-icons text-sm">call</span>Call Us
@@ -273,7 +273,7 @@ export default function ContactPage() {
                       <span className="material-icons text-sm">chat</span>WhatsApp
                     </a>
                   </div>
-                  <button onClick={() => setSubmitted(false)} className="text-slate-400 text-sm hover:text-primary transition-colors mt-2 underline underline-offset-4">
+                  <button onClick={() => setSubmitted(false)} className="text-slate-400 text-sm hover:text-primary transition-colors mt-2 underline underline-offset-4 cursor-pointer">
                     Send another message
                   </button>
                 </motion.div>
@@ -281,7 +281,7 @@ export default function ContactPage() {
                 <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                   <div className="mb-10">
                     <h2 className="text-3xl font-extrabold text-primary mb-2">Send an Enquiry</h2>
-                    <p className="text-slate-500">We&apos;ll get back to you within 3 working days.</p>
+                    <p className="text-slate-500">We&apos;ll get back to you within 24 hours.</p>
                   </div>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid sm:grid-cols-2 gap-6">

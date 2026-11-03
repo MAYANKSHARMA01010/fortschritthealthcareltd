@@ -23,6 +23,16 @@ app.get("/", (req, res) => {
   res.status(200).send("<h1>Backend Running Successfully 🚀</h1>");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "healthy", timestamp: new Date().toISOString() });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).json({ success: false, message: "Internal server error" });
+});
+
 // Initialize DB and start server
 const startServer = async () => {
   try {
