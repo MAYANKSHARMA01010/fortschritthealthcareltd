@@ -43,7 +43,9 @@ const EMAILS = [
 const PRIMARY_EMAIL = "mailto:info@fortschritthealthcareltd.com";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", subject: "", message: "" });
+  const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", message: "" });
+  const [enquiryType, setEnquiryType] = useState<string>("");
+  const [customSubject, setCustomSubject] = useState<string>("");
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,13 +67,34 @@ export default function ContactPage() {
     setErrors({});
     setServerError(null);
 
+    // Validate enquiry type selection
+    if (!enquiryType) {
+      setErrors((prev) => ({ ...prev, subject: ["Please select an enquiry type"] }));
+      setIsSubmitting(false);
+      return;
+    }
+
+    // If Other is selected, ensure custom subject is specified
+    if (enquiryType === "Other" && !customSubject.trim()) {
+      setErrors((prev) => ({ ...prev, customSubject: ["Please specify your subject"] }));
+      setIsSubmitting(false);
+      return;
+    }
+
+    const finalSubject = enquiryType === "Other" ? `Other: ${customSubject.trim()}` : enquiryType;
+
     try {
-      const validatedData = contactSchema.parse(form);
+      const validatedData = contactSchema.parse({
+        ...form,
+        subject: finalSubject,
+      });
       
       await submitContactForm(validatedData);
 
       setSubmitted(true);
-      setForm({ name: "", company: "", email: "", phone: "", subject: "", message: "" });
+      setForm({ name: "", company: "", email: "", phone: "", message: "" });
+      setEnquiryType("");
+      setCustomSubject("");
     } catch (error) {
       if (error instanceof z.ZodError) {
         setErrors(error.flatten().fieldErrors as Record<string, string[]>);
@@ -273,7 +296,11 @@ export default function ContactPage() {
                       <span className="material-icons text-sm">chat</span>WhatsApp
                     </a>
                   </div>
-                  <button onClick={() => setSubmitted(false)} className="text-slate-400 text-sm hover:text-primary transition-colors mt-2 underline underline-offset-4 cursor-pointer">
+                  <button onClick={() => {
+                    setSubmitted(false);
+                    setEnquiryType("");
+                    setCustomSubject("");
+                  }} className="text-slate-400 text-sm hover:text-primary transition-colors mt-2 underline underline-offset-4 cursor-pointer">
                     Send another message
                   </button>
                 </motion.div>
@@ -331,23 +358,62 @@ export default function ContactPage() {
                     <div>
                       <label className="block text-sm font-bold text-primary mb-2">Enquiry Type *</label>
                       <select
-                        name="subject"
-                        value={form.subject}
-                        onChange={handleChange}
-                        onFocus={() => setFocused("subject")}
+                        name="enquiryType"
+                        value={enquiryType}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setEnquiryType(val);
+                          if (errors.subject || errors.customSubject) {
+                            setErrors((prev) => ({ ...prev, subject: [], customSubject: [] }));
+                          }
+                          setServerError(null);
+                        }}
+                        onFocus={() => setFocused("enquiryType")}
                         onBlur={() => setFocused(null)}
-                        className={`w-full px-4 py-3.5 rounded-xl border bg-slate-50 text-slate-700 outline-none transition-all text-sm focus:border-primary ${errors.subject?.length ? 'border-red-500' : 'border-slate-200'}`}>
+                        className={`w-full px-4 py-3.5 rounded-xl border bg-slate-50 text-slate-700 outline-none transition-all text-sm focus:border-primary cursor-pointer ${errors.subject?.length ? 'border-red-500' : 'border-slate-200'}`}>
                         <option value="">Select an enquiry type</option>
-                        <option>Product Enquiry</option>
-                        <option>Partnership / Distribution</option>
-                        <option>Manufacturing & Supply</option>
-                        <option>R&D Collaboration</option>
-                        <option>Quality & Regulatory</option>
-                        <option>Export / International</option>
-                        <option>General Inquiry</option>
+                        <option value="Product Enquiry">Product Enquiry</option>
+                        <option value="Partnership / Distribution">Partnership / Distribution</option>
+                        <option value="Manufacturing & Supply">Manufacturing & Supply</option>
+                        <option value="R&D Collaboration">R&D Collaboration</option>
+                        <option value="Quality & Regulatory">Quality & Regulatory</option>
+                        <option value="Export / International">Export / International</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="Other">Other (Specify Custom Subject)</option>
                       </select>
                       {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject[0]}</p>}
                     </div>
+
+                    {/* Animated Custom Subject Input when "Other" is selected */}
+                    <AnimatePresence>
+                      {enquiryType === "Other" && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0, y: -6 }}
+                          animate={{ opacity: 1, height: "auto", y: 0 }}
+                          exit={{ opacity: 0, height: 0, y: -6 }}
+                          transition={{ duration: 0.25, ease }}
+                        >
+                          <label className="block text-sm font-bold text-primary mb-2">Specify Subject *</label>
+                          <motion.input
+                            name="customSubject"
+                            type="text"
+                            placeholder="e.g. Third-Party Contract Manufacturing, Institutional Supply..."
+                            value={customSubject}
+                            onChange={(e) => {
+                              setCustomSubject(e.target.value);
+                              if (errors.customSubject) {
+                                setErrors((prev) => ({ ...prev, customSubject: [] }));
+                              }
+                            }}
+                            onFocus={() => setFocused("customSubject")}
+                            onBlur={() => setFocused(null)}
+                            animate={{ borderColor: errors.customSubject?.length ? "#ef4444" : focused === "customSubject" ? "#1e3a8a" : "#e2e8f0" }}
+                            className="w-full px-4 py-3.5 rounded-xl border bg-slate-50 text-slate-700 placeholder:text-slate-300 outline-none transition-all text-sm"
+                          />
+                          {errors.customSubject && <p className="text-red-500 text-xs mt-1">{errors.customSubject[0]}</p>}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     <div>
                       <label className="block text-sm font-bold text-primary mb-2">Message *</label>
