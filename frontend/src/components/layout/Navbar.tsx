@@ -84,13 +84,11 @@ const navItems: NavItem[] = [
     label: "Products",
     href: "/products",
     dropdown: [
-      { label: "All Categories",              href: "/products",              icon: "grid_view",        description: "Browse our complete product portfolio" },
-      { label: "Gynecology Range",            href: "/products?cat=gynecology", icon: "favorite",       description: "Women's health & reproductive care" },
-      { label: "General Medicine",            href: "/products?cat=general",  icon: "medication",       description: "Tablets, capsules & injectables" },
-      { label: "Hormonal Tablets",            href: "/products?cat=hormonal", icon: "biotech",          description: "Endocrine & hormone therapy" },
-      { label: "Active Pharma Ingredients",   href: "/products?cat=api",      icon: "science",          description: "High-purity API manufacturing" },
-      { label: "Nutraceuticals",              href: "/products?cat=nutra",    icon: "local_pharmacy",   description: "Wellness & dietary supplements" },
-      { label: "Veterinary Products",         href: "/products?cat=vet",      icon: "pets",             description: "Animal healthcare solutions" },
+      { label: "All Formulations",            href: "/products",                    icon: "grid_view",        description: "Browse complete portfolio (467)" },
+      { label: "General Pharma",              href: "/products?div=General",         icon: "medication",       description: "Tablets, capsules & injectables (286)" },
+      { label: "Hormones & Endocrine",        href: "/products?div=Hormones",        icon: "monitor_heart",    description: "Endocrine & critical hormone therapy (35)" },
+      { label: "Nutraceuticals & Powders",    href: "/products?div=Nutraceuticals",   icon: "local_pharmacy",   description: "Wellness & dietary supplements (77)" },
+      { label: "Softgel Capsules",            href: "/products?div=Softgel",         icon: "water_drop",       description: "Specialized soft gelatin capsules (69)" },
     ],
   },
   { label: "Infrastructure", href: "/?scroll=infrastructure" },
@@ -141,7 +139,7 @@ export default function Navbar() {
     const [path, query] = href.split("?");
     const searchParams = new URLSearchParams(query);
     const scrollTarget = searchParams.get("scroll");
-    const catTarget = searchParams.get("cat");
+    const divTarget = searchParams.get("div") || searchParams.get("cat");
 
     const currentPath = window.location.pathname;
     const targetPath = path === "" || path === "/" ? "/" : path;
@@ -159,11 +157,10 @@ export default function Navbar() {
       setActiveDropdown(null);
     }
 
-    // 2. Same Page category filter for Products Page
-    if (catTarget && currentPath === "/products" && targetPath === "/products") {
+    // 2. Same Page division navigation for Products Page
+    if (currentPath === "/products" && targetPath === "/products") {
       e.preventDefault();
-      const event = new CustomEvent("changeCategory", { detail: catTarget });
-      window.dispatchEvent(event);
+      window.location.href = href;
       setMobileOpen(false);
       setActiveDropdown(null);
     }
@@ -253,8 +250,8 @@ export default function Navbar() {
 
                           <div className="p-2.5 space-y-0.5">
                             {item.dropdown!.map((sub, subIdx) => {
-                              /* ── "All Categories" gets a full-width hero row ── */
-                              if (sub.label === "All Categories") {
+                              /* ── "All Formulations" gets a full-width hero row ── */
+                              if (sub.label === "All Formulations" || sub.label === "All Categories") {
                                 return (
                                   <a
                                     key={sub.label}
@@ -285,8 +282,8 @@ export default function Navbar() {
                                 );
                               }
 
-                              /* ── Divider after "All Categories" before first category ── */
-                              const prevIsAll = item.dropdown![subIdx - 1]?.label === "All Categories";
+                              /* ── Divider after "All Formulations" before first category ── */
+                              const prevIsAll = item.dropdown![subIdx - 1]?.label === "All Formulations" || item.dropdown![subIdx - 1]?.label === "All Categories";
 
                               return (
                                 <React.Fragment key={sub.label}>
