@@ -43,7 +43,7 @@ const Verticals = () => {
                   <span className="material-icons text-3xl">medication</span>
                 </div>
                 <span className="absolute top-4 right-4 text-[10px] font-extrabold bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full uppercase">
-                  168 Formulations
+                  Core Segment
                 </span>
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between">
@@ -59,7 +59,7 @@ const Verticals = () => {
                   href="/products?div=General"
                   className="inline-flex items-center gap-2 text-primary font-bold text-xs tracking-tight group-hover:text-secondary group-hover:gap-3 transition-all"
                 >
-                  Explore 168 Products
+                  Explore General Range
                   <span className="material-icons text-base">arrow_forward</span>
                 </Link>
               </div>
@@ -77,7 +77,7 @@ const Verticals = () => {
                   <span className="material-icons text-3xl">monitor_heart</span>
                 </div>
                 <span className="absolute top-4 right-4 text-[10px] font-extrabold bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full uppercase">
-                  12 Formulations
+                  Endocrine Line
                 </span>
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between">
@@ -111,7 +111,7 @@ const Verticals = () => {
                   <span className="material-icons text-3xl">local_pharmacy</span>
                 </div>
                 <span className="absolute top-4 right-4 text-[10px] font-extrabold bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full uppercase">
-                  87 Formulations
+                  Wellness Range
                 </span>
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between">
@@ -145,7 +145,7 @@ const Verticals = () => {
                   <span className="material-icons text-3xl">water_drop</span>
                 </div>
                 <span className="absolute top-4 right-4 text-[10px] font-extrabold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full uppercase">
-                  10 Formulations
+                  Softgel Line
                 </span>
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between">

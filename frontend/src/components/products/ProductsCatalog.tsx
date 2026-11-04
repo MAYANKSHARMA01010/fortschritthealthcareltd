@@ -49,12 +49,19 @@ export function getVariantBadgeLabel(variant: { label: string; composition: stri
   return strengthStr ? `${strengthStr}` : `Formulation ${idx + 1}`;
 }
 
-const divisionTabs = [
-  { id: "all", label: "All Formulations", count: PRODUCTS.length, icon: "grid_view" },
-  { id: "General", label: "General Pharma", count: PRODUCTS.filter((p) => p.division === "General").length, icon: "medication" },
-  { id: "Hormones", label: "Hormones & Endocrine", count: PRODUCTS.filter((p) => p.division === "Hormones").length, icon: "monitor_heart" },
-  { id: "Nutraceuticals", label: "Nutraceuticals & Powders", count: PRODUCTS.filter((p) => p.division === "Nutraceuticals").length, icon: "local_pharmacy" },
-  { id: "Softgel", label: "Softgel Capsules", count: PRODUCTS.filter((p) => p.division === "Softgel").length, icon: "water_drop" },
+interface DivisionTab {
+  id: string;
+  label: string;
+  count?: string;
+  icon: string;
+}
+
+const divisionTabs: DivisionTab[] = [
+  { id: "all", label: "All Formulations", count: "1000+", icon: "grid_view" },
+  { id: "General", label: "General Pharma", icon: "medication" },
+  { id: "Hormones", label: "Hormones & Endocrine", icon: "monitor_heart" },
+  { id: "Nutraceuticals", label: "Nutraceuticals & Powders", icon: "local_pharmacy" },
+  { id: "Softgel", label: "Softgel Capsules", icon: "water_drop" },
 ];
 
 const dosageForms = ["All", ...new Set(PRODUCTS.map((product) => product.dosageForm))];
@@ -159,7 +166,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-slate-300 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium mb-8"
           >
-            {`Explore ${PRODUCTS.length} formulations spanning General Medicines, Hormones & Endocrinology, Nutraceuticals, Sachets, Protein Powders, and Softgel Capsules. Each ingredient combination has its own card, with available strengths listed together.`}
+            {`Explore 1000+ formulations spanning General Medicines, Hormones & Endocrinology, Nutraceuticals, Sachets, Protein Powders, and Softgel Capsules. Each ingredient combination has its own card, with available strengths listed together.`}
           </motion.p>
 
           {/* Feature Highlights Grid */}
@@ -167,7 +174,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
             <div className="flex items-center gap-3 bg-white/5 border border-white/10 p-3 rounded-2xl text-left backdrop-blur-md">
               <span className="material-icons text-sky-400 text-xl">verified</span>
               <div>
-                <div className="text-white text-xs font-bold">{`${PRODUCTS.length} Formulations`}</div>
+                <div className="text-white text-xs font-bold">1000+ Formulations</div>
                 <div className="text-slate-400 text-[11px]">WHO-GMP Certified</div>
               </div>
             </div>
@@ -215,13 +222,15 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
                 >
                   <span className="material-icons text-base sm:text-lg flex-shrink-0">{tab.icon}</span>
                   <span>{tab.label}</span>
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-xs font-black flex-shrink-0 ${
-                      isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-slate-700"
-                    }`}
-                  >
-                    {tab.count}
-                  </span>
+                  {tab.count && (
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-xs font-black flex-shrink-0 ${
+                        isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-slate-700"
+                      }`}
+                    >
+                      {tab.count}
+                    </span>
+                  )}
                 </button>
               );
             })}
@@ -313,7 +322,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-200/60">
           <div>
             <h3 className="text-2xl font-black text-primary">
-              Formulations ({filteredProducts.length})
+              Formulations ({filteredProducts.length === PRODUCTS.length ? "1000+" : filteredProducts.length})
             </h3>
             <p className="text-slate-500 text-xs font-medium mt-1">
               Different ingredient combinations are listed separately. Naming and strength variations of the same formulation share a card.
@@ -494,7 +503,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
                   <span className="material-icons text-base">expand_more</span>
                   <span>Load More Formulations</span>
                   <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-xs font-black">
-                    Showing {visibleProducts.length} of {filteredProducts.length}
+                    Showing {visibleProducts.length} of {filteredProducts.length === PRODUCTS.length ? "1000+" : filteredProducts.length}
                   </span>
                 </button>
               </div>

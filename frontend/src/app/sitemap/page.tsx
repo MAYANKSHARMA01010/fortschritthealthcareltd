@@ -26,11 +26,11 @@ const sitemapData = [
     icon: "inventory_2",
     color: "from-violet-500/10 to-purple-500/5",
     links: [
-      { label: "All Formulations",           href: "/products",                    description: "Browse complete portfolio (467 formulations)" },
-      { label: "General Pharma",             href: "/products?div=General",         description: "Tablets, capsules & injectables (286 formulations)" },
-      { label: "Hormones & Endocrine",       href: "/products?div=Hormones",        description: "Endocrine & critical hormone therapy (35 formulations)" },
-      { label: "Nutraceuticals & Powders",   href: "/products?div=Nutraceuticals",   description: "Wellness & dietary supplements (77 formulations)" },
-      { label: "Softgel Capsules",           href: "/products?div=Softgel",         description: "Specialized soft gelatin capsules (69 formulations)" },
+      { label: "All Formulations",           href: "/products",                    description: "Browse complete portfolio (1000+ formulations)" },
+      { label: "General Pharma",             href: "/products?div=General",         description: "Tablets, capsules & injectables" },
+      { label: "Hormones & Endocrine",       href: "/products?div=Hormones",        description: "Endocrine & critical hormone therapy" },
+      { label: "Nutraceuticals & Powders",   href: "/products?div=Nutraceuticals",   description: "Wellness & dietary supplements" },
+      { label: "Softgel Capsules",           href: "/products?div=Softgel",         description: "Specialized soft gelatin capsules" },
     ],
   },
   {
