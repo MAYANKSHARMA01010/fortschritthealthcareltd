@@ -11,9 +11,14 @@ export interface ParsedIngredient {
   quantity: string;
 }
 
+const compositionCache = new Map<string, ParsedIngredient[]>();
+
 export function parseComposition(raw: string): ParsedIngredient[] {
   if (!raw) return [];
-  return raw
+  const cached = compositionCache.get(raw);
+  if (cached) return cached;
+
+  const result = raw
     .split(";")
     .map((s) => s.trim())
     .filter(Boolean)
@@ -28,6 +33,9 @@ export function parseComposition(raw: string): ParsedIngredient[] {
       }
       return { name: item.trim(), quantity: "" };
     });
+
+  compositionCache.set(raw, result);
+  return result;
 }
 
 export function getVariantBadgeLabel(variant: { label: string; composition: string }, idx: number): string {
@@ -50,10 +58,12 @@ const divisionTabs = [
 ];
 
 const dosageForms = ["All", ...new Set(PRODUCTS.map((product) => product.dosageForm))];
+const categories = ["All", ...new Set(PRODUCTS.map((product) => product.category))];
 
 export default function ProductsCatalog({ initialDivision }: { initialDivision: string }) {
   const [selectedDivision, setSelectedDivision] = useState<string>(initialDivision);
   const [selectedForm, setSelectedForm] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeModalProduct, setActiveModalProduct] = useState<ProductItem | null>(null);
   const [activeVariantIndex, setActiveVariantIndex] = useState<number>(0);
@@ -63,7 +73,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
   // Reset displayLimit to 24 whenever filter criteria changes
   useEffect(() => {
     setDisplayLimit(24);
-  }, [selectedDivision, selectedForm, searchQuery]);
+  }, [selectedDivision, selectedForm, selectedCategory, searchQuery]);
 
   // Reset variant index when modal product changes
   useEffect(() => {
@@ -87,6 +97,10 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
       if (selectedForm !== "All" && product.dosageForm !== selectedForm) {
         return false;
       }
+      // Therapeutic Category Filter
+      if (selectedCategory !== "All" && product.category !== selectedCategory) {
+        return false;
+      }
       // Search Query Filter
       if (searchQuery.trim() !== "") {
         const query = searchQuery.toLowerCase();
@@ -102,7 +116,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
       }
       return true;
     }).sort((a, b) => a.name.localeCompare(b.name));
-  }, [selectedDivision, selectedForm, searchQuery]);
+  }, [selectedDivision, selectedForm, selectedCategory, searchQuery]);
 
   const visibleProducts = useMemo(() => {
     return filteredProducts.slice(0, displayLimit);
@@ -184,9 +198,9 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
 
       {/* Catalog Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Division Selector Tabs - Never cut off with ellipses */}
-        <div className="w-full mb-10 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-2.5 lg:justify-center py-1 min-w-max lg:min-w-0">
+        {/* Division Selector Tabs */}
+        <div className="w-full mb-10 overflow-x-auto no-scrollbar p-1">
+          <div className="flex items-center justify-start 2xl:justify-center gap-2.5 min-w-max mx-auto px-1 py-1">
             {divisionTabs.map((tab) => {
               const isSelected = selectedDivision === tab.id;
               return (
@@ -214,7 +228,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
           </div>
         </div>
 
-        {/* Sub-Filters: Search Bar + Dosage Form */}
+        {/* Sub-Filters: Search Bar + Dosage Form + Therapy */}
         <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md mb-12 flex flex-col gap-5">
           {/* Main Search Input Bar */}
           <div className="relative w-full flex items-center">
@@ -237,39 +251,60 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
             )}
           </div>
 
-          {/* Dosage Form Selector */}
-          <div className="flex items-center gap-3 pt-3 border-t border-slate-100">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">
-              Dosage Form:
-            </span>
-            <div
-              ref={dosageScrollRef}
-              onWheel={(e) => {
-                if (e.deltaY !== 0) {
-                  e.currentTarget.scrollLeft += e.deltaY;
-                }
-              }}
-              className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 flex-1 min-w-0"
-            >
-              {orderedDosageForms.map((form) => {
-                const isSelected = selectedForm === form;
-                return (
-                  <button
-                    key={form}
-                    onClick={() => {
-                      setSelectedForm(form);
-                      dosageScrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
-                    }}
-                    className={`flex-shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      isSelected
-                        ? "bg-secondary text-white shadow-md shadow-secondary/20"
-                        : "bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-primary border border-slate-100"
-                    }`}
-                  >
-                    {form}
-                  </button>
-                );
-              })}
+          {/* Sub-Filter Controls: Dosage Form & Therapy */}
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4 pt-4 border-t border-slate-100">
+            {/* Dosage Form Selector */}
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">
+                Dosage Form:
+              </span>
+              <div
+                ref={dosageScrollRef}
+                className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 flex-1 min-w-0"
+              >
+                {orderedDosageForms.map((form) => {
+                  const isSelected = selectedForm === form;
+                  return (
+                    <button
+                      key={form}
+                      onClick={() => {
+                        setSelectedForm(form);
+                        dosageScrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+                      }}
+                      className={`flex-shrink-0 whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                        isSelected
+                          ? "bg-secondary text-white shadow-md shadow-secondary/20"
+                          : "bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-primary border border-slate-100"
+                      }`}
+                    >
+                      {form}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Therapeutic Category Selector */}
+            <div className="flex items-center gap-2.5 flex-shrink-0 w-full sm:w-auto xl:w-72">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex-shrink-0">
+                Therapy:
+              </span>
+              <div className="relative flex-1 min-w-[200px]">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full pl-3.5 pr-8 py-2.5 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:border-primary focus:bg-white cursor-pointer appearance-none transition-colors shadow-xs"
+                >
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat === "All" ? "All Therapies" : cat}
+                    </option>
+                  ))}
+                </select>
+                <span className="material-icons absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-base">
+                  expand_more
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -285,11 +320,12 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
             </p>
           </div>
 
-          {(selectedDivision !== "all" || selectedForm !== "All" || searchQuery !== "") && (
+          {(selectedDivision !== "all" || selectedForm !== "All" || selectedCategory !== "All" || searchQuery !== "") && (
             <button
               onClick={() => {
                 setSelectedDivision("all");
                 setSelectedForm("All");
+                setSelectedCategory("All");
                 setSearchQuery("");
               }}
               className="text-xs font-bold text-secondary hover:underline flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-50 border border-sky-100 cursor-pointer"
@@ -306,7 +342,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
               {visibleProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="bg-white rounded-[2rem] p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group relative overflow-hidden"
+                  className="bg-white rounded-[2rem] p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-150 flex flex-col justify-between group relative overflow-hidden"
                 >
                   {/* Top Colored Division Accent Line */}
                   <div
@@ -475,6 +511,7 @@ export default function ProductsCatalog({ initialDivision }: { initialDivision: 
               onClick={() => {
                 setSelectedDivision("all");
                 setSelectedForm("All");
+                setSelectedCategory("All");
                 setSearchQuery("");
               }}
               className="px-6 py-3 bg-primary text-white font-bold rounded-xl text-xs hover:bg-secondary transition-all cursor-pointer"
